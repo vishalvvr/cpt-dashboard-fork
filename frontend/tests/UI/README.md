@@ -1,6 +1,6 @@
 [Playwright Framework Docs](https://playwright.dev/python/docs/intro)
 
-# Setup
+# Run test locally
 - Installing dependencies 
     ```console
     $ pip install -r requirements.txt
@@ -9,16 +9,26 @@
     ```console
     $ playwright install
     ```
-
-# Run Test
-- Run test 
+- Export env variables
     ```console
-    $ pytest -vs --headed --base-url <http://localhost:3000>
+    $ export BASE_URL = "<url of CPT dashboard>"
+    $ export API_URL = "<backend api endpoint>"
     ```
-- Generate allure report 
+- Run test
     ```console
-    $ pytest --alluredir allure-results
-    $ allure serve allure-results
+    $ pytest
     ```
-    > Note: Make sure you have allure installed before you run these commands. [Installation Docs](https://allurereport.org/docs/gettingstarted-installation)
-   
+# Run test in container
+- Build container 
+    make sure you have podman installed
+    ```console
+    $ podman build -t cpt-ui-test -f Dockerfile
+    ```
+- Run test
+    ```console
+    $ podman run -e BASE_URL=<base url> -e API_URL=<api url> --network=host -it localhost/cpt-ui-test 
+    ```
+    eg: 
+    ```console
+    $ podman run -e BASE_URL="http://localhost:3000" -e API_URL="http://localhost:8000/api/v1/cpt/jobs?pretty=true" --network=host -it localhost/cpt-ui-test
+    ```

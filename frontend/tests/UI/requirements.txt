@@ -1,5 +1,3 @@
-pytest
-playwright
-pytest-playwright
-allure-pytest
-# pytest-reporter-html1
+pytest==8.2.0
+playwright==1.43.0
+pytest-playwright==0.4.4
